@@ -25,6 +25,52 @@ body{
   height: 100%;
 }
 
+.product-image {
+  height: 150px;
+  object-fit: cover;
+}
+
+.product-description {
+  max-height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Show max 3 lines */
+  -webkit-box-orient: vertical;
+}
+
+.product-card-body {
+  min-height: 200px;
+}
+
+/*Signup*/
+.signup-container {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 1rem;
+}
+
+.signup-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.text-danger {
+  font-size: 0.875rem;
+}
+
+/*Logo*/
+img .logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 576px) {
   .product-listing .col {
     padding-left: 8px;
