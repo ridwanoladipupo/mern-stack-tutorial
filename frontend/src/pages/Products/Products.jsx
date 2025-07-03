@@ -20,6 +20,8 @@ const Products = () => {
 
   const { items, loading } = useSelector((state) => state.products);
 
+  console.log("Fetched product", items);
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);

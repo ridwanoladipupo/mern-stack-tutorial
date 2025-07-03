@@ -1,15 +1,20 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import logo from "../../assets/logo.png";
+import { signup } from "../../redux/actions/authAction";
 
 const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const SignupSchema = Yup.object().shape({
-    fullname: Yup.string().required("Fullname is required"),
+    name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string()
-      .matches(/^[0-9]{10,15}$/, "Phone must be 10-15 digits")
-      .required("Phone is required"),
     password: Yup.string()
       .min(6, "Minimum 6 characters")
       .required("Password is required"),
@@ -34,25 +39,30 @@ const Signup = () => {
 
         <Formik
           initialValues={{
-            fullname: "",
+            name: "",
             email: "",
-            phone: "",
             password: "",
             confirmPassword: "",
           }}
           validationSchema={SignupSchema}
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log("Form values", values);
-            resetForm();
+            const success = await dispatch(signup(values));
+
+            if (success) {
+              resetForm();
+              navigate("/products"); // ✅ Navigate after success
+            }
+            setSubmitting(false);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-3">
-                <label className="form-label">Fullname</label>
-                <Field type="text" name="fullname" className="form-control" />
+                <label className="form-label">Name</label>
+                <Field type="text" name="name" className="form-control" />
                 <ErrorMessage
-                  name="fullname"
+                  name="name"
                   component="div"
                   className="text-danger"
                 />
@@ -63,16 +73,6 @@ const Signup = () => {
                 <Field type="email" name="email" className="form-control" />
                 <ErrorMessage
                   name="email"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Phone</label>
-                <Field type="text" name="phone" className="form-control" />
-                <ErrorMessage
-                  name="phone"
                   component="div"
                   className="text-danger"
                 />
@@ -116,6 +116,10 @@ const Signup = () => {
             </Form>
           )}
         </Formik>
+        <div className="text-center mt-3">
+          <span>Already have account? </span>
+          <Link to="/login">Login</Link>
+        </div>
       </div>
     </div>
   );

@@ -1,21 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
+
 import logo from "../../assets/logo.png";
+import { login } from "../../redux/actions/authAction";
 
 const Login = () => {
-  const SignupSchema = Yup.object().shape({
-    fullname: Yup.string().required("Fullname is required"),
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string()
-      .matches(/^[0-9]{10,15}$/, "Phone must be 10-15 digits")
-      .required("Phone is required"),
     password: Yup.string()
       .min(6, "Minimum 6 characters")
       .required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm your password"),
   });
 
   return (
@@ -30,49 +32,32 @@ const Login = () => {
           />
         </div>
 
-        <h3 className="mb-4 text-center">Sign Up</h3>
+        <h3 className="mb-4 text-center">Login</h3>
 
         <Formik
           initialValues={{
-            fullname: "",
             email: "",
-            phone: "",
             password: "",
-            confirmPassword: "",
           }}
-          validationSchema={SignupSchema}
-          onSubmit={(values, { resetForm }) => {
+          validationSchema={LoginSchema}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             console.log("Form values", values);
-            resetForm();
+            const success = await dispatch(login(values));
+
+            if (success) {
+              resetForm();
+              navigate("/products"); // ✅ Navigate after success
+            }
+            setSubmitting(false);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-3">
-                <label className="form-label">Fullname</label>
-                <Field type="text" name="fullname" className="form-control" />
-                <ErrorMessage
-                  name="fullname"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-
-              <div className="mb-3">
                 <label className="form-label">Email</label>
                 <Field type="email" name="email" className="form-control" />
                 <ErrorMessage
                   name="email"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Phone</label>
-                <Field type="text" name="phone" className="form-control" />
-                <ErrorMessage
-                  name="phone"
                   component="div"
                   className="text-danger"
                 />
@@ -92,30 +77,21 @@ const Login = () => {
                 />
               </div>
 
-              <div className="mb-3">
-                <label className="form-label">Confirm Password</label>
-                <Field
-                  type="password"
-                  name="confirmPassword"
-                  className="form-control"
-                />
-                <ErrorMessage
-                  name="confirmPassword"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
-
               <button
                 type="submit"
                 className="btn btn-primary w-100 mt-3"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Signing up..." : "Sign Up"}
+                {isSubmitting ? "Signing in..." : "Login"}
               </button>
             </Form>
           )}
         </Formik>
+
+        <div className="text-center mt-3">
+          <span>Don't have an account? </span>
+          <Link to="/register">Sign up</Link>
+        </div>
       </div>
     </div>
   );

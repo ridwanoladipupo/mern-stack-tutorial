@@ -9,7 +9,6 @@ import authRoutes from "./routes/auth.route.js";
 dotenv.config();
 
 const app = express();
-const PORT = 5400;
 
 //Enable CORS
 app.use(cors());
@@ -24,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("Welcome, server is live");
 });
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   connectDB();
   console.log("Server started at http://localhost:5400 ");
 });

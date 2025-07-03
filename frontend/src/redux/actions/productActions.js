@@ -34,17 +34,19 @@ export const fetchProducts = () => async (dispatch) => {
 
     const data = await res.json();
 
+    console.log("Fetched Products", data.data);
+
     if (!res.ok) {
       // If the response status is not OK (e.g. 401), throw it to be caught
       throw new Error(data.message || "Failed to fetch products");
     }
 
-    if (!Array.isArray(data)) {
+    if (!Array.isArray(data.data)) {
       // If backend doesn't return an array, something went wrong
       throw new Error("Invalid data format: expected array");
     }
 
-    dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
+    dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data.data });
   } catch (err) {
     dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: err.message });
     toast.error(err.message || "Something went wrong");
