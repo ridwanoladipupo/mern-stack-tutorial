@@ -23,16 +23,31 @@ export const DELETE_PRODUCT_FAILURE = "DELETE_PRODUCT_FAILURE";
 // FETCH all products
 export const fetchProducts = () => async (dispatch) => {
   dispatch({ type: FETCH_PRODUCTS_REQUEST });
+
   try {
-    const res = await fetch("http://localhost:5400/api/products");
+    const res = await fetch("http://localhost:5400/api/products", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
+        "Content-Type": "application/json",
+      },
+    });
+
     const data = await res.json();
 
-    // console.log("products", data);
+    if (!res.ok) {
+      // If the response status is not OK (e.g. 401), throw it to be caught
+      throw new Error(data.message || "Failed to fetch products");
+    }
+
+    if (!Array.isArray(data)) {
+      // If backend doesn't return an array, something went wrong
+      throw new Error("Invalid data format: expected array");
+    }
 
     dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
   } catch (err) {
     dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: err.message });
-    toast.error("Failed to fetch product");
+    toast.error(err.message || "Something went wrong");
   }
 };
 
@@ -62,11 +77,14 @@ export const updateProduct = (product) => async (dispatch) => {
 
   dispatch({ type: UPDATE_PRODUCT_REQUEST });
   try {
-    const res = await fetch(`http://localhost:5400/api/products/${product.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    });
+    const res = await fetch(
+      `http://localhost:5400/api/products/${product.id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      }
+    );
     const data = await res.json();
     dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
     toast.success("Product updated successfully!");

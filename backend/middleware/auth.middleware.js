@@ -6,7 +6,10 @@ const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "User not authorized" });
+    return res.status(401).json({
+      success: false,
+      message: "User not authorized",
+    });
   }
 
   const token = authHeader.split(" ")[1];
@@ -16,7 +19,10 @@ const authMiddleware = (req, res, next) => {
     req.user = decoded; // optionally use this in routes
     next();
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" });
+    res.status(401).json({
+      success: false,
+      message: "Invalid token",
+    });
   }
 };
 

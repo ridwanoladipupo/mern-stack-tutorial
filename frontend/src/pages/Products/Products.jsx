@@ -20,8 +20,6 @@ const Products = () => {
 
   const { items, loading } = useSelector((state) => state.products);
 
-  console.log("Edited product", items);
-
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -78,7 +76,7 @@ const Products = () => {
             </div>
           ) : (
             <Row className="g-4">
-              {items.map((product) => (
+              {items?.map((product) => (
                 <Col key={product.id} xs={12} sm={6} md={3} lg={3}>
                   <ProductCard
                     product={product}
