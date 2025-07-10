@@ -32,7 +32,6 @@ export const fetchProducts = () => async (dispatch) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
           "Content-Type": "application/json",
         },
-        
       }
     );
 
@@ -67,12 +66,15 @@ export const addProduct = (product) => async (dispatch) => {
       "https://mern-stack-tutorial-ei2b.onrender.com/api/products",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify(product),
       }
     );
     const data = await res.json();
-    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
+    dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data.data });
     toast.success("Product created successfully!");
   } catch (err) {
     dispatch({ type: CREATE_PRODUCT_FAILURE, payload: err.message });
@@ -87,15 +89,21 @@ export const updateProduct = (product) => async (dispatch) => {
   dispatch({ type: UPDATE_PRODUCT_REQUEST });
   try {
     const res = await fetch(
-      `https://mern-stack-tutorial-ei2b.onrender.com/api/products/${product.id}`,
+      `https://mern-stack-tutorial-ei2b.onrender.com/api/products/${product._id}`,
       {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify(product),
       }
     );
     const data = await res.json();
-    dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data });
+
+    // console.log("Product updated response", data.data);
+
+    dispatch({ type: UPDATE_PRODUCT_SUCCESS, payload: data.data });
     toast.success("Product updated successfully!");
   } catch (err) {
     dispatch({ type: UPDATE_PRODUCT_FAILURE, payload: err.message });
@@ -113,6 +121,10 @@ export const deleteProduct = (id) => async (dispatch) => {
       `https://mern-stack-tutorial-ei2b.onrender.com/api/products/${id}`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       }
     );
     dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: id });

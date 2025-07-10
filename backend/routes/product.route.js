@@ -66,7 +66,7 @@ router.get("/", authMiddleware, authorizeRoles("customer"), getProducts);
  *       404:
  *         description: Product not found
  */
-router.get("/:id", authMiddleware, getProductsById);
+router.get("/:id", authMiddleware, authorizeRoles("customer"), getProductsById);
 
 /**
  * @swagger
@@ -97,7 +97,7 @@ router.get("/:id", authMiddleware, getProductsById);
  *       400:
  *         description: Invalid input
  */
-router.post("/", authMiddleware, createProducts);
+router.post("/", authMiddleware, authorizeRoles("customer"), createProducts);
 
 /**
  * @swagger
@@ -131,7 +131,7 @@ router.post("/", authMiddleware, createProducts);
  *       404:
  *         description: Product not found
  */
-router.put("/:id", authMiddleware, updateProducts);
+router.put("/:id", authMiddleware, authorizeRoles("customer"), updateProducts);
 
 /**
  * @swagger
@@ -152,6 +152,11 @@ router.put("/:id", authMiddleware, updateProducts);
  *       404:
  *         description: Product not found
  */
-router.delete("/:id", authMiddleware, deleteProducts);
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorizeRoles("customer"),
+  deleteProducts
+);
 
 export default router;

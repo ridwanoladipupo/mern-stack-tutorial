@@ -80,11 +80,11 @@ const Products = () => {
           ) : (
             <Row className="g-4">
               {items?.map((product) => (
-                <Col key={product.id} xs={12} sm={6} md={3} lg={3}>
+                <Col key={product._id} xs={12} sm={6} md={3} lg={3}>
                   <ProductCard
                     product={product}
                     onEdit={() => handleEdit(product)}
-                    onDelete={() => handleDelete(product.id)}
+                    onDelete={() => handleDelete(product._id)}
                   />
                 </Col>
               ))}
