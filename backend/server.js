@@ -11,12 +11,16 @@ dotenv.config();
 const app = express();
 
 //Enable CORS
+//Enable CORS
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    credentials: true,
+    origin: "http://localhost:5173", // update this
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+app.options("*", cors()); // handle preflight requests
 
 app.use(express.json()); //allows us to accept JSON data in the req.body
 
