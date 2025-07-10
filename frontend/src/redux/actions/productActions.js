@@ -113,8 +113,6 @@ export const updateProduct = (product) => async (dispatch) => {
 
 // DELETE product
 export const deleteProduct = (id) => async (dispatch) => {
-  console.log("Delete product", id);
-
   dispatch({ type: DELETE_PRODUCT_REQUEST });
   try {
     await fetch(

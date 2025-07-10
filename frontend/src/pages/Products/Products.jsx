@@ -11,7 +11,6 @@ import {
   fetchProducts,
   updateProduct,
 } from "../../redux/actions/productActions";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import SkeletonCard from "../../components/SkeletonCard";
 
@@ -22,8 +21,6 @@ const Products = () => {
   const dispatch = useDispatch();
 
   const { items, loading } = useSelector((state) => state.products);
-
-  console.log("Fetched product", items);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -69,7 +66,15 @@ const Products = () => {
           </div>
 
           {loading ? (
-            <SkeletonCard />
+            <Row className="g-4">
+              {Array(3)
+                .fill(null)
+                .map((_, index) => (
+                  <Col key={index} xs={12} sm={6} md={3} lg={3}>
+                    <SkeletonCard />
+                  </Col>
+                ))}
+            </Row>
           ) : items.length === 0 ? (
             <div
               className="d-flex justify-content-center align-items-center"
@@ -79,7 +84,7 @@ const Products = () => {
             </div>
           ) : (
             <Row className="g-4">
-              {items?.map((product) => (
+              {items.map((product) => (
                 <Col key={product._id} xs={12} sm={6} md={3} lg={3}>
                   <ProductCard
                     product={product}

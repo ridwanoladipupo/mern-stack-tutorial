@@ -45,7 +45,6 @@ export const login = (values) => async (dispatch) => {
 
 // SIGNUP
 export const signup = (values) => async (dispatch) => {
-  console.log("User sign up..", values);
   dispatch({ type: SIGNUP_REQUEST });
   try {
     const res = await fetch(

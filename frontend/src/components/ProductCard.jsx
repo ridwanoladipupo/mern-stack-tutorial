@@ -3,6 +3,7 @@ import { Card } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const ProductCard = ({ product, onEdit, onDelete }) => {
+  console.log("Product Item", product);
   return (
     <Card style={{ width: "18rem" }} key={product._id} className="mb-5">
       <Card.Img

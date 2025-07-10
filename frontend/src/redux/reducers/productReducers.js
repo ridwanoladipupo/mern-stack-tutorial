@@ -44,15 +44,14 @@ const productReducer = (state = initialState, action) => {
 
     case UPDATE_PRODUCT_REQUEST:
       return { ...state, updateLoading: true };
+
     case UPDATE_PRODUCT_SUCCESS:
       return {
         ...state,
         updateLoading: false,
-        items: state.items.map((item) => {
-          console.log("item", item);
-          console.log("item payload", action.payload);
-          item._id === action.payload._id ? action.payload : item;
-        }),
+        items: state.items.map((item) =>
+          item._id === action.payload._id ? action.payload : item
+        ),
       };
     case UPDATE_PRODUCT_FAILURE:
       return { ...state, updateLoading: false, error: action.payload };
