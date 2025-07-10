@@ -7,10 +7,11 @@ import {
   updateProducts,
 } from "../controllers/product.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
+import authorizeRoles from "../middleware/role.middleware.js";
 
 const router = express.Router();
 
-router.get("/", authMiddleware, getProducts);
+router.get("/", authMiddleware, authorizeRoles("customer"), getProducts);
 
 router.get("/:id", authMiddleware, getProductsById);
 

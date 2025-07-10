@@ -13,14 +13,17 @@ export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const login = (values) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
-    const res = await fetch("http://localhost:5400/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: values.email,
-        password: values.password,
-      }),
-    });
+    const res = await fetch(
+      "https://mern-stack-tutorial-dy2v.onrender.com/api/auth/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: values.email,
+          password: values.password,
+        }),
+      }
+    );
 
     const data = await res.json();
 
@@ -44,15 +47,18 @@ export const signup = (values) => async (dispatch) => {
   console.log("User sign up..", values);
   dispatch({ type: SIGNUP_REQUEST });
   try {
-    const res = await fetch("http://localhost:5400/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      }),
-    });
+    const res = await fetch(
+      "https://mern-stack-tutorial-dy2v.onrender.com/api/auth/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        }),
+      }
+    );
 
     const data = await res.json();
 

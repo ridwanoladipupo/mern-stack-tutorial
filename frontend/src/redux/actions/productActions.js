@@ -25,12 +25,15 @@ export const fetchProducts = () => async (dispatch) => {
   dispatch({ type: FETCH_PRODUCTS_REQUEST });
 
   try {
-    const res = await fetch("http://localhost:5400/api/products", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://mern-stack-tutorial-dy2v.onrender.com/api/products",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
 
