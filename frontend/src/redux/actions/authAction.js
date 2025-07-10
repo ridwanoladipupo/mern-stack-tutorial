@@ -14,7 +14,7 @@ export const login = (values) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
     const res = await fetch(
-      "https://mern-stack-tutorial-dy2v.onrender.com/api/auth/login",
+      "https://mern-stack-tutorial-ei2b.onrender.com/api/auth/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
