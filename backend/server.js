@@ -16,7 +16,7 @@ const app = express();
 //Enable CORS
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://mern-tutorial.netlify.app/", //
+  "https://mern-tutorial.netlify.app", //
 ];
 
 app.use(
