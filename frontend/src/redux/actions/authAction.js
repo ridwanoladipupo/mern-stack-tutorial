@@ -48,7 +48,7 @@ export const signup = (values) => async (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   try {
     const res = await fetch(
-      "https://mern-stack-tutorial-dy2v.onrender.com/api/auth/register",
+      "https://mern-stack-tutorial-ei2b.onrender.com/api/auth/register",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

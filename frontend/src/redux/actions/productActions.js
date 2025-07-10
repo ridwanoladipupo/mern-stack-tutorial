@@ -26,7 +26,7 @@ export const fetchProducts = () => async (dispatch) => {
 
   try {
     const res = await fetch(
-      "https://mern-stack-tutorial-dy2v.onrender.com/api/products",
+      "https://mern-stack-tutorial-ei2b.onrender.com/api/products",
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
@@ -62,11 +62,14 @@ export const addProduct = (product) => async (dispatch) => {
 
   dispatch({ type: CREATE_PRODUCT_REQUEST });
   try {
-    const res = await fetch("http://localhost:5400/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    });
+    const res = await fetch(
+      "https://mern-stack-tutorial-ei2b.onrender.com/api/products",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      }
+    );
     const data = await res.json();
     dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data });
     toast.success("Product created successfully!");
@@ -83,7 +86,7 @@ export const updateProduct = (product) => async (dispatch) => {
   dispatch({ type: UPDATE_PRODUCT_REQUEST });
   try {
     const res = await fetch(
-      `http://localhost:5400/api/products/${product.id}`,
+      `https://mern-stack-tutorial-ei2b.onrender.com/api/products/${product.id}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -105,9 +108,12 @@ export const deleteProduct = (id) => async (dispatch) => {
 
   dispatch({ type: DELETE_PRODUCT_REQUEST });
   try {
-    await fetch(`http://localhost:5400/api/products/${id}`, {
-      method: "DELETE",
-    });
+    await fetch(
+      `https://mern-stack-tutorial-ei2b.onrender.com/api/products/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: id });
     toast.success("Product deleted successfully!");
   } catch (err) {
