@@ -32,6 +32,7 @@ export const fetchProducts = () => async (dispatch) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // add token here if needed
           "Content-Type": "application/json",
         },
+        
       }
     );
 
