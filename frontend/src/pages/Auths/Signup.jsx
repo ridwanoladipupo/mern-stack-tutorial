@@ -31,7 +31,8 @@ const Signup = () => {
             className="logo"
             src={logo}
             alt="Logo"
-            style={{ width: "200px" }}
+            style={{ width: "200px", cursor: "pointer" }}
+            onClick={() => navigate("/")}
           />
         </div>
 
