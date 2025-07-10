@@ -7,7 +7,7 @@ const options = {
     info: {
       title: "Mern Stack Tutorial",
       version: "1.0.0",
-      description: "API documentation for MERN Tutorial",
+      description: "API documentation for MERN Stack Tutorial",
       termsOfService: "https://yourapp.com/terms",
       contact: {
         name: "Ridwan Oladipupo",
@@ -20,6 +20,11 @@ const options = {
       },
     },
     tags: [
+      {
+        name: "Authentication",
+        description:
+          "Operations related to authentication - sign up and login (create)",
+      },
       {
         name: "Products",
         description:
