@@ -55,6 +55,7 @@ export const signup = (values) => async (dispatch) => {
         body: JSON.stringify({
           name: values.name,
           email: values.email,
+          role: "customer",
           password: values.password,
         }),
       }
