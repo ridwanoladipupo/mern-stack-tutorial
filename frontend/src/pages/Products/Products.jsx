@@ -11,6 +11,9 @@ import {
   fetchProducts,
   updateProduct,
 } from "../../redux/actions/productActions";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import SkeletonCard from "../../components/SkeletonCard";
 
 const Products = () => {
   const [showModal, setShowModal] = useState(false);
@@ -66,9 +69,7 @@ const Products = () => {
           </div>
 
           {loading ? (
-            <div className="d-flex justify-content-center align-items-center vh-50">
-              <Spinner animation="border" role="status" />
-            </div>
+            <SkeletonCard />
           ) : items.length === 0 ? (
             <div
               className="d-flex justify-content-center align-items-center"
