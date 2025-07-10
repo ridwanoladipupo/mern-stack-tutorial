@@ -22,6 +22,7 @@ export const login = (values) => async (dispatch) => {
           email: values.email,
           password: values.password,
         }),
+        credentials: "include",
       }
     );
 
@@ -58,6 +59,7 @@ export const signup = (values) => async (dispatch) => {
           role: "customer",
           password: values.password,
         }),
+        credentials: "include",
       }
     );
 
