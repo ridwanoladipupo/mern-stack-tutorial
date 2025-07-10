@@ -20,8 +20,6 @@ app.use(
   })
 );
 
-app.options("*", cors()); // handle preflight requests
-
 app.use(express.json()); //allows us to accept JSON data in the req.body
 
 //route files
